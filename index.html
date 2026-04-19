@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sai Kiran & Mounika Wedding</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --maroon: #600000;
+            --white: #ffffff;
+        }
+
+        body, html {
+            margin: 0; padding: 0; width: 100%; height: 100%;
+            font-family: 'Montserrat', sans-serif; background: #000;
+            overflow-x: hidden; scroll-behavior: smooth;
+        }
+
+        /* Entry Gate - Split Screen */
+        #entry-gate {
+            display: flex; width: 100%; height: 100vh;
+            position: fixed; z-index: 1000; top: 0; left: 0;
+            transition: transform 1.2s cubic-bezier(0.7, 0, 0.3, 1);
+        }
+
+        .side {
+            width: 50%; height: 100%; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; cursor: pointer;
+            position: relative; overflow: hidden;
+            background-color: #111;
+        }
+
+        .groom-side { 
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+            url('https://i.postimg.cc/xqDj4NJr/Whats-App-Image-2026-04-14-at-9-56-48-PM.jpg') center/cover no-repeat; 
+            border-right: 2px solid var(--gold); 
+        }
+        
+        .bride-side { 
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+            url('https://i.postimg.cc/grFcTLw1/Whats-App-Image-2026-04-14-at-9-56-49-PM-(1).jpg') center/cover no-repeat; 
+        }
+
+        .side h2 { 
+            font-family: 'Great Vibes', cursive; font-size: 5rem; 
+            color: #fff; text-shadow: 2px 2px 10px #000; margin: 0; 
+        }
+        
+        .side p { 
+            font-family: 'Playfair Display', serif; color: var(--gold); 
+            font-weight: bold; letter-spacing: 4px; border: 1px solid var(--gold);
+            padding: 10px 20px; background: rgba(0,0,0,0.6); margin-bottom: 20px;
+        }
+
+        .click-hint {
+            position: absolute; bottom: 40px;
+            font-size: 0.75rem; color: rgba(212,175,55,0.8);
+            letter-spacing: 3px; animation: blink 1.5s infinite;
+        }
+        @keyframes blink { 0%,100%{opacity:0.3} 50%{opacity:1} }
+
+        /* Main Content Section */
+        #main-content {
+            display: none; opacity: 0; text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), 
+                        url('https://i.postimg.cc/4nk4SHKr/Whats-App-Image-2026-04-15-at-10-30-15-PM.jpg') fixed center/cover no-repeat;
+            backdrop-filter: blur(8px); padding-bottom: 80px; color: #fff;
+            transition: opacity 1s ease;
+        }
+
+        .header-box { padding: 80px 20px; }
+        .header-box h1 { 
+            font-family: 'Great Vibes', cursive; font-size: 6rem; 
+            color: var(--gold); margin: 0;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .invite-text { font-family: 'Playfair Display', serif; font-size: 1.1rem; letter-spacing: 2px; color: #ddd; margin-top: 20px; }
+
+        /* Slideshow */
+        .slideshow-container {
+            width: 90%; max-width: 1000px; height: 75vh;
+            margin: 40px auto; position: relative;
+            background: rgba(255,255,255,0.05); border: 1px solid var(--gold);
+            display: flex; align-items: center; justify-content: center; overflow: hidden;
+        }
+
+        .mySlides { 
+            display: none; width: 100%; height: 100%; 
+            object-fit: contain; animation: fadeEffect 1s;
+        }
+
+        /* Details Section */
+        .details-container {
+            width: 90%; max-width: 750px; margin: 40px auto;
+            background: rgba(20, 20, 20, 0.85); padding: 50px 20px;
+            border: 1px solid var(--gold); border-radius: 10px;
+        }
+
+        .details-container h3 { font-family: 'Playfair Display', serif; font-size: 2.8rem; color: var(--gold); margin: 0; }
+        .section-title { font-family: 'Great Vibes', cursive; font-size: 2.5rem; color: var(--gold); margin-top: 30px; }
+        .highlight { font-size: 1.8rem; font-weight: bold; margin: 10px 0; color: #fff; letter-spacing: 2px; }
+        .info-p { font-size: 1.1rem; color: #ccc; margin: 5px 0; line-height: 1.6; }
+
+        .btn {
+            display: inline-block; padding: 15px 30px; 
+            border: 1px solid var(--gold); color: var(--gold);
+            text-decoration: none; margin: 20px 10px; transition: 0.3s;
+            font-weight: bold; text-transform: uppercase; letter-spacing: 2px;
+        }
+        .btn:hover { background: var(--gold); color: #000; }
+
+        /* Music toggle button */
+        #music-btn {
+            position: fixed; bottom: 20px; right: 20px; z-index: 9999;
+            background: rgba(0,0,0,0.8); border: 1px solid var(--gold);
+            color: var(--gold); padding: 10px 18px; border-radius: 50px;
+            cursor: pointer; font-size: 1rem; font-family: 'Montserrat', sans-serif;
+            letter-spacing: 1px; display: none; transition: 0.3s;
+        }
+        #music-btn:hover { background: var(--gold); color: #000; }
+
+        /* Rose Petals */
+        .petals-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 999; }
+        .petal { position: absolute; background: var(--gold); border-radius: 150% 0 150% 0; opacity: 0.4; animation: fall linear infinite; }
+
+        @keyframes fall { 0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; } 100% { transform: translateY(110vh) rotate(720deg); opacity: 0; } }
+        @keyframes fadeEffect { from { opacity: 0.4; } to { opacity: 1; } }
+
+        @media (max-width: 600px) {
+            .side h2 { font-size: 3rem; }
+            .header-box h1 { font-size: 4rem; }
+            .slideshow-container { height: 45vh; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Background Music -->
+    <audio id="bg-music" loop preload="auto">
+        <source src="https://files.catbox.moe/9lh049.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Music Toggle Button (shown after entry) -->
+    <button id="music-btn" onclick="toggleMusic()">🎵 Music</button>
+
+    <div class="petals-container" id="petals"></div>
+
+    <div id="entry-gate">
+        <div class="side groom-side" onclick="enterInvite()">
+            <p>Team Groom</p>
+            <h2>Sai Kiran</h2>
+            <span class="click-hint">TAP TO ENTER</span>
+        </div>
+        <div class="side bride-side" onclick="enterInvite()">
+            <p>Team Bride</p>
+            <h2>Mounika</h2>
+            <span class="click-hint">TAP TO ENTER</span>
+        </div>
+    </div>
+
+    <div id="main-content">
+        <div class="header-box">
+            <p style="color: var(--gold); letter-spacing: 5px;">SRIRASTHU • SUBHAMASTHU • AVIGHNAMASTHU</p>
+            <h1>Sai Kiran & Mounika</h1>
+            <p class="invite-text">WE CORDIALLY INVITE YOU TO CELEBRATE OUR WEDDING</p>
+        </div>
+
+        <div class="slideshow-container">
+            <img class="mySlides" src="https://i.postimg.cc/wMK1sj5t/Whats-App-Image-2026-04-16-at-12-16-50-AM.jpg">
+            <img class="mySlides" src="https://i.postimg.cc/1XWpZms9/DSC04985-jpg.jpg">
+            <img class="mySlides" src="https://i.postimg.cc/MTS0739w/DSC04971-jpg.jpg">
+            <img class="mySlides" src="https://i.postimg.cc/T2c09GMR/DSC05018-jpg.jpg">
+            <img class="mySlides" src="https://i.postimg.cc/R0fQnxQK/DSC05029-jpg.jpg">
+            <img class="mySlides" src="https://i.postimg.cc/sX4YwPL7/DSC05127-jpg.jpg">
+            <img class="mySlides" src="https://i.postimg.cc/BZN5FgHG/DSC05135-jpg.jpg">
+            <img class="mySlides" src="https://i.postimg.cc/L5yzM92M/DSC05218-jpg.jpg">
+            <img class="mySlides" src="https://i.postimg.cc/fLfcB7Px/DSC05278-(1)-jpg.jpg">
+            <img class="mySlides" src="https://i.postimg.cc/1XWpZms9/DSC04985-jpg.jpg">
+        </div>
+
+        <div class="details-container">
+            <h3>Save The Date</h3>
+            
+            <div class="section-title">Subhamuhurtham</div>
+            <p class="highlight">Sunday, 03<sup>rd</sup> May 2026</p>
+            <p class="info-p"><b>At 07:14 AM</b></p>
+            <p class="info-p">Anuradha Nakshatra Vrushabha Lagnam</p>
+
+            <div class="section-title">Wedding Venue</div>
+            <p class="info-p" style="font-weight: bold; color: #fff;">S.V. CONVENTION HALL</p>
+            <p class="info-p">Chunnambatti Wada, Mancherial, Telangana.</p>
+            <a href="https://maps.google.com/?cid=1967502511471990727&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQ" target="_blank" class="btn">Wedding Map</a>
+
+            <div style="margin: 40px 0; border-top: 1px solid rgba(212, 175, 55, 0.3);"></div>
+
+            <div class="section-title">Reception & Dinner</div>
+            <p class="highlight">Tuesday, 05<sup>th</sup> May 2026</p>
+            <p class="info-p">From 07:00 PM Onwards</p>
+            <p class="info-p">Military Colony, Katheru, Rajahmundry</p>
+            <a href="https://maps.app.goo.gl/srdzr878M4b2A2Je6" target="_blank" class="btn">Reception Map</a>
+            
+            <p style="font-family: 'Great Vibes'; font-size: 3.5rem; color: var(--gold); margin-top: 50px;">With Best Compliments from Near & Dear</p>
+        </div>
+    </div>
+
+    <script>
+        var music = document.getElementById('bg-music');
+        var musicBtn = document.getElementById('music-btn');
+        var isMusicPlaying = false;
+        var entered = false;
+
+        function enterInvite() {
+            if (entered) return;
+            entered = true;
+
+            // Slide gate away
+            document.getElementById('entry-gate').style.transform = 'translateY(-100%)';
+
+            // Show main content
+            var main = document.getElementById('main-content');
+            main.style.display = 'block';
+            setTimeout(function() {
+                main.style.opacity = '1';
+                startSlideshow();
+                createPetals();
+                window.scrollTo(0, 0);
+            }, 600);
+
+            // Play music immediately on user click (this is the user gesture)
+            music.volume = 0.7;
+            var playPromise = music.play();
+
+            if (playPromise !== undefined) {
+                playPromise.then(function() {
+                    isMusicPlaying = true;
+                    musicBtn.style.display = 'block';
+                    musicBtn.innerHTML = '🎵 Music';
+                }).catch(function(err) {
+                    console.warn('Music blocked by browser:', err);
+                    isMusicPlaying = false;
+                    musicBtn.style.display = 'block';
+                    musicBtn.innerHTML = '▶ Play Music';
+                });
+            } else {
+                isMusicPlaying = true;
+                musicBtn.style.display = 'block';
+            }
+        }
+
+        function toggleMusic() {
+            if (isMusicPlaying) {
+                music.pause();
+                isMusicPlaying = false;
+                musicBtn.innerHTML = '🔇 Music Off';
+            } else {
+                music.play();
+                isMusicPlaying = true;
+                musicBtn.innerHTML = '🎵 Music';
+            }
+        }
+
+        var slideIndex = 0;
+        function startSlideshow() {
+            var slides = document.getElementsByClassName("mySlides");
+            for (var i = 0; i < slides.length; i++) { slides[i].style.display = "none"; }
+            slideIndex++;
+            if (slideIndex > slides.length) { slideIndex = 1; }
+            slides[slideIndex - 1].style.display = "block";
+            setTimeout(startSlideshow, 4000);
+        }
+
+        function createPetals() {
+            var container = document.getElementById('petals');
+            for (var i = 0; i < 40; i++) {
+                var petal = document.createElement('div');
+                petal.className = 'petal';
+                petal.style.left = Math.random() * 100 + 'vw';
+                petal.style.width = Math.random() * 10 + 5 + 'px';
+                petal.style.animationDuration = Math.random() * 5 + 5 + 's';
+                petal.style.animationDelay = Math.random() * 10 + 's';
+                container.appendChild(petal);
+            }
+        }
+    </script>
+</body>
+</html>
